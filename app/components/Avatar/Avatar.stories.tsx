@@ -63,26 +63,3 @@ export const XLarge: Story = {
     size: Options.size.xl,
   },
 };
-
-// export const XXLarge: Story = {
-//   args: {
-//     size: Options.size["2xl"],
-//   },
-// };
-// export const ProfileSmall: Story = {
-//   args: {
-//     size: Options.size.profileSm,
-//   },
-// };
-
-// export const ProfileMedium: Story = {
-//   args: {
-//     size: Options.size.profileMd,
-//   },
-// };
-
-// export const ProfileLarge: Story = {
-//   args: {
-//     size: Options.size.profileLg,
-//   },
-// };

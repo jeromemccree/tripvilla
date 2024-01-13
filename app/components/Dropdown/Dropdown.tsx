@@ -6,7 +6,7 @@ type DropdownItem = {
   text: string;
   icon?: React.ReactNode;
   href: string;
-  hasDivider?: boolean;
+  dividerBelow?: boolean;
 };
 export type DropdownProps = {
   button: React.ReactNode;
@@ -46,7 +46,7 @@ const Dropdown: React.FC<DropdownProps> = ({ button, header, dropdownItems }) =>
                       : null}
                     <span className="font-medium"> {item.text}</span>
                   </Link>
-                  {item.hasDivider ? <hr className="bg-gray-200" /> : null}
+                  {item.dividerBelow ? <hr className="bg-gray-200" /> : null}
                 </>
               </Menu.Item>
             ))}
