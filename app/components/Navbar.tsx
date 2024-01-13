@@ -1,12 +1,14 @@
 "use client";
 import React from "react";
 import Logo from "./Logo";
-import Dropdown from "./Dropdown/Dropdown";
+import Dropdown from "./dropdown/Dropdown";
 import { Communication, General } from "untitledui-js";
 import { useSession, signIn } from "next-auth/react";
-import Button from "./Button";
-import { useSearchModal } from "../Hooks/useOpenClose";
-import { useMobleSidebarModal } from "../Hooks/useOpenClose";
+import Button from "@/app/components/Button";
+import { useSearchModal } from "@/app/hooks/useOpenClose";
+import { useMobleSidebarModal } from "@/app/hooks/useOpenClose";
+import { Avatar } from "@/app/components/avatar/Avatar";
+import AvatarLabelGroup from "@/app/components/avatar/AvatarLabelGroup";
 
 interface NavigationItem {
   icon: (className: string) => JSX.Element;
@@ -64,12 +66,25 @@ const Navbar: React.FC = () => {
       </button>
       <div className="hidden items-center gap-3 desktop:flex">
         <Dropdown
-          buttonType={sessionData ? "avatar" : "dots"}
-          headerType={sessionData ? "avatar" : "header"}
-          avatarSrc={sessionData?.user?.image || ""}
-          headerSrc={sessionData?.user?.image || ""}
-          headerText={sessionData?.user.name || "Account Menu"}
-          headerSupportingText={sessionData?.user.email || ""}
+          button={
+            sessionData ? (
+              <Avatar size="md" src={sessionData?.user?.image || ""} alt="avatar" />
+            ) : (
+              <General.DotsVertical />
+            )
+          }
+          header={
+            sessionData ? (
+              <AvatarLabelGroup
+                text={sessionData?.user.name || ""}
+                supportingText={sessionData?.user.email || ""}
+                size="md"
+                avatar={<Avatar size="md" src={sessionData?.user?.image || ""} alt="avatar" />}
+              />
+            ) : (
+              <span className="font-semibold text-gray-700">Menu</span>
+            )
+          }
           dropdownItems={Navigation.map((item) => ({
             text: item.name,
             icon: item.icon("icon-class-name"), // Replace 'icon-class-name' with the actual class name
@@ -77,14 +92,14 @@ const Navbar: React.FC = () => {
             hasDivider: item.lineAbove,
           }))}
         />
-        {!sessionData && (
+        {!sessionData ? (
           <>
             <Button
               variant="default"
               hierarchy="tertiary_gray"
               size="lg"
               text="Sign In"
-              onClick={!sessionData ? () => void signIn() : () => ""}
+              onClick={() => void signIn()}
             />
 
             <Button
@@ -92,10 +107,10 @@ const Navbar: React.FC = () => {
               hierarchy="primary"
               size="lg"
               text="Log In"
-              onClick={!sessionData ? () => void signIn() : () => ""}
+              onClick={() => void signIn()}
             />
           </>
-        )}
+        ) : null}
       </div>
       <Button
         variant="iconOnly"

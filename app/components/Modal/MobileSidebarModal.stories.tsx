@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from "@storybook/react";
 import MobileSidebarModal from "./MobileSidebarModal";
-import { useMobleSidebarModal } from "../../Hooks/useOpenClose";
+import { useMobleSidebarModal } from "../../hooks/useOpenClose";
 
 const meta: Meta<typeof MobileSidebarModal> = {
   title: "Components/Modal/MobleSidebarModal",

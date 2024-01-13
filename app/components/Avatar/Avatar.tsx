@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Users } from "untitledui-js";
+import classNames from "classnames";
 
 export const Options = {
   size: {
@@ -47,9 +48,12 @@ const createAvatar = (
     return (
       <div
         style={{ width: sizeValue, height: sizeValue }}
-        className={` ${className}  inline-block overflow-hidden rounded-full border border-opacity-10 focus:border-4 focus:border-gray-300 focus:border-opacity-20 ${
-          placeholder ? "bg-gray-100 " : ""
-        } flex flex-shrink-0 items-center justify-center ${sizeValue}`}
+        className={classNames(
+          "inline-block flex flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-opacity-10 focus:border-4 focus:border-gray-300 focus:border-opacity-20",
+          className,
+          placeholder ? "bg-gray-100" : "",
+          sizeValue,
+        )}
         tabIndex={0}
         onClick={onClick}
       >

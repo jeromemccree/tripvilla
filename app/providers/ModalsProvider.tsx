@@ -1,6 +1,6 @@
 "use client";
-import MobileSidebarModal from "../components/Modal/MobileSidebarModal";
-import SearchModal from "../components/Modal/SearchModal";
+import MobileSidebarModal from "@/app/components/modal/MobileSidebarModal";
+import SearchModal from "@/app/components/modal/SearchModal";
 
 const ModalsProvider = () => {
   return (

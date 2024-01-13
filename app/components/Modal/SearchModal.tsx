@@ -2,7 +2,7 @@
 import { Fragment, useState } from "react";
 // import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
-import { useSearchModal } from "../../Hooks/useOpenClose";
+import { useSearchModal } from "../../hooks/useOpenClose";
 import { General } from "untitledui-js";
 const people = [
   { id: 1, name: "Leslie Alexander", url: "#" },
@@ -73,7 +73,7 @@ export default function SearchModal() {
                         className={({ active }) =>
                           classNames(
                             "cursor-default select-none px-4 py-2",
-                            active && "bg-indigo-600 text-white",
+                            active ? "bg-indigo-600 text-white" : "",
                           )
                         }
                       >

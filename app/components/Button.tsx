@@ -2,6 +2,7 @@
 
 import React from "react";
 import { type ReactElement } from "react";
+import classNames from "classnames";
 
 export const Options = {
   hierarchy: {
@@ -49,30 +50,30 @@ const Button: React.FC<ButtonProps> = ({
   className,
   onClick,
 }) => {
-  const hierarchyClasses: {
-    [key: string]: {
+  const hierarchyClasses: Record<
+    string,
+    {
       button: string;
       padding?: string;
-    };
-  } = {
+    }
+  > = {
     primary: {
       button:
-        "bg-brand-600 text-white hover:bg-brand-700 focus:ring-brand-500 focus:ring-opacity-25",
+        "bg-brand-600 shadow-xs  text-white hover:bg-brand-700 focus:ring-brand-500 focus:ring-opacity-25",
     },
     secondary_gray: {
       button:
-        " bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-800 focus:ring-gray-300 focus:ring-opacity-25",
+        " bg-white shadow-xs  border border-gray-300 text-gray-700 hover:bg-gray-50  hover:text-gray-800 focus:ring-gray-300 focus:ring-opacity-25",
     },
     secondary_color: {
       button:
-        "bg-white text-brand-700 border border-brand-300 hover:bg-brand-50  hover:text-brand-800 focus:ring-brand-500 focus:ring-opacity-25",
+        "bg-white  shadow-xs text-brand-700 border border-brand-300 hover:bg-brand-50  hover:text-brand-800 focus:ring-brand-500 focus:ring-opacity-25",
     },
     tertiary_gray: {
       button: "text-gray-600 hover:bg-gray-50 hover:text-gray-700 focus:ring-transparent",
     },
     tertiary_color: {
-      button:
-        "bg-white text-brand-700 hover:bg-brand-50 hover:text-brand-800  focus:ring-transparent",
+      button: "text-brand-700 hover:bg-brand-50 hover:text-brand-800  focus:ring-transparent ",
     },
     link_gray: {
       button: "text-gray-600 hover:bg-gray-50 hover:text-gray-700 focus:ring-transparent",
@@ -105,30 +106,35 @@ const Button: React.FC<ButtonProps> = ({
       iconOnly: { padding: "p-4", iconSize: "h-5", gap: "" },
     },
   };
-  const baseButtonClasses =
-    "inline-flex rounded-md items-center justify-center font-semibold shadow-xs focus:ring shrink-0";
-  const buttonClasses = `${baseButtonClasses} ${className} ${
-    hierarchyClasses[hierarchy]?.padding || buttonStyles[size][variant].padding
-  } ${buttonStyles[size][variant].gap} ${hierarchyClasses[hierarchy]?.button}`;
-  const renderIcon = (icon: ReactElement | undefined) => {
-    return icon
-      ? React.cloneElement(icon, {
-          className: `stoke-2 stroke-current ${buttonStyles[size][variant].iconSize}`,
-        })
-      : null;
+  const buttonClasses = classNames(
+    "inline-flex rounded-md items-center justify-center font-semibold focus:ring shrink-0",
+    className,
+    hierarchyClasses[hierarchy]?.padding ?? buttonStyles[size][variant].padding,
+    buttonStyles[size][variant].gap,
+    hierarchyClasses[hierarchy]?.button,
+  );
+
+  const renderButtonContent = () => {
+    if (variant === "iconOnly") {
+      return leadingIcon ? renderIcon(leadingIcon) : null;
+    }
+    return (
+      <>
+        {leadingIcon ? renderIcon(leadingIcon) : null}
+        {text ? <span>{text}</span> : null}
+        {trailingIcon ? renderIcon(trailingIcon) : null}
+      </>
+    );
   };
-  const isIconOnly = variant === "iconOnly";
+
+  const renderIcon = (icon: ReactElement) => {
+    return React.cloneElement(icon, {
+      className: classNames("stoke-2 stroke-current", buttonStyles[size][variant].iconSize),
+    });
+  };
   return (
     <button type="button" className={buttonClasses} disabled={disabled} onClick={onClick}>
-      {isIconOnly ? (
-        leadingIcon && renderIcon(leadingIcon)
-      ) : (
-        <>
-          {leadingIcon && renderIcon(leadingIcon)}
-          {text && <span>{text}</span>}
-          {trailingIcon && renderIcon(trailingIcon)}
-        </>
-      )}
+      {renderButtonContent()}
     </button>
   );
 };

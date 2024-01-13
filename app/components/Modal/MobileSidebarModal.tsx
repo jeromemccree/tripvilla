@@ -1,12 +1,13 @@
+"use client";
 import React from "react";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useMobleSidebarModal } from "../../Hooks/useOpenClose";
+import { useMobleSidebarModal } from "@/app/hooks/useOpenClose";
 import Button from "../Button";
 import { General } from "untitledui-js";
-import Logo from "../Logo";
-import AvatarLabelGroup from "../Avatar/AvatarLabelGroup";
+import Logo from "@/app/components/Logo";
+// import AvatarLabelGroup from "@/app/components/avatar/AvatarLabelGroup";
 
 const MobileSidebarModal: React.FC = () => {
   const { data: sessionData } = useSession();
@@ -55,16 +56,16 @@ const MobileSidebarModal: React.FC = () => {
                   </div>
                 </Transition.Child>
 
-                <nav className="flex w-full max-w-xs flex-col justify-between  bg-white">
+                <nav className="flex w-full max-w-xs flex-col justify-between bg-white">
                   <Logo />
                   {sessionData ? (
                     <div className="flex flex-row  justify-between">
-                      <AvatarLabelGroup
+                      {/* <AvatarLabelGroup
                         size="md"
                         text={sessionData.user.name || ""}
                         supportingText={sessionData.user.email || ""}
                         src={sessionData.user.image || ""}
-                      />
+                      /> */}
                       <Button
                         variant="iconOnly"
                         hierarchy="tertiary_gray"

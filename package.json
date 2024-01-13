@@ -17,6 +17,7 @@
     "@headlessui/react": "^1.7.17",
     "@prisma/client": "^5.7.1",
     "@types/eslint": "^8.44.9",
+    "classnames": "^2.5.1",
     "framer-motion": "^10.16.16",
     "next": "^14.0.4",
     "next-auth": "^4.24.5",

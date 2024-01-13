@@ -1,7 +1,7 @@
 import { type Meta, type StoryObj } from "@storybook/react";
 import Navbar from "./Navbar";
 // import RootLayout from "../layout";
-import SearchModal from "./Modal/SearchModal";
+import SearchModal from "./modal/SearchModal";
 
 const meta: Meta<typeof Navbar> = {
   title: "Components/Navbar",

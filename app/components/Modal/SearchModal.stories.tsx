@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from "@storybook/react";
 import SearchModal from "./SearchModal";
-import { useSearchModal } from "../../Hooks/useOpenClose";
+import { useSearchModal } from "../../hooks/useOpenClose";
 
 const meta: Meta<typeof SearchModal> = {
   title: "Components/Modal/SearchModal",

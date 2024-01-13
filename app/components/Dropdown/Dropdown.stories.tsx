@@ -55,19 +55,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const dropdownOptions = [
-  {
-    buttonType: Options.buttonType.button,
-    headerType: Options.headerType.header,
-    buttonText: "Accounts",
-    headerText: "Accounts Menu",
-  },
-  {
-    buttonType: Options.buttonType.dots,
-    headerType: Options.headerType.header,
-    headerText: "Options Menu",
-  },
-];
 export const DropdownTypes: Story = {
   render: (args) => (
     <div className="flex items-center gap-10">

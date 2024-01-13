@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 interface BaseGroupButtonProps {
   text: string;
   className?: string;
@@ -11,9 +13,11 @@ const BaseGroupButton: React.FC<BaseGroupButtonProps> = ({
   onClick,
   isCurrent,
 }) => {
-  const buttonClasses = `${className} ${
-    isCurrent ? "text-gray-800 bg-gray-50" : "text-gray-700 hover:bg-gray-50  hover:text-gray-800"
-  } "text-sm font-semibod px-4 py-2 item-center flex-inline `;
+  const buttonClasses = classNames(
+    "text-sm font-semibod px-4 py-2 item-center flex-inline",
+    className,
+    isCurrent ? "text-gray-800 bg-gray-50" : "text-gray-700 hover:bg-gray-50 hover:text-gray-800",
+  );
 
   return (
     <button type="button" className={buttonClasses} onClick={onClick}>
@@ -33,7 +37,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ buttons }) => {
         <BaseGroupButton
           key={index}
           text={button.text}
-          className={`${button.className} ${index !== 0 ? "border-l border-gray-300" : ""}`}
+          className={classNames(button.className, index !== 0 ? "border-l border-gray-300" : "")}
           onClick={button.onClick}
           isCurrent={button.isCurrent}
         />

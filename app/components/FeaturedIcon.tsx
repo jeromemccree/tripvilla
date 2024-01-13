@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import classNames from "classnames";
 
 export const Options = {
@@ -63,7 +63,7 @@ const FeaturedIcon: React.FC<FeaturedIconProps> = ({ icon, size, color }) => {
       className={classNames(
         "flex h-fit w-fit flex-shrink-0 items-center justify-center rounded-full border-8",
         colorClasses[color].border,
-        colorClasses[color].bg
+        colorClasses[color].bg,
       )}
     >
       {React.cloneElement(icon, {
@@ -71,7 +71,7 @@ const FeaturedIcon: React.FC<FeaturedIconProps> = ({ icon, size, color }) => {
           "shrink-0",
           colorClasses[color].stroke,
           sizeClasses[size].size,
-          sizeClasses[size].margin
+          sizeClasses[size].margin,
         ),
       })}
     </div>
