@@ -1,8 +1,8 @@
 import React from "react";
+import "@/app/globals.css";
 import type { Preview } from "@storybook/react";
 import ModalsProvider from "@/app/providers/ModalsProvider";
 import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from "@storybook/addon-viewport";
-import "@/app/globals.css";
 
 const preview: Preview = {
   decorators: [
