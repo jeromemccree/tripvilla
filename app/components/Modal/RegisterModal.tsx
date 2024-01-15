@@ -8,27 +8,42 @@ import { useRegisterModal } from "@/app/hooks/useOpenClose";
 import Modal from "@/app/components/modal/Modal";
 import Logo from "../Logo";
 import { InputField } from "@/app/components/Input";
-// import { z } from "zod";
+import { z } from "zod";
 import { useState } from "react";
+import { useCheckEmailModal } from "@/app/hooks/useOpenClose";
 
 const RegisterModal: React.FC = () => {
   const [email, setEmail] = useState("");
   const registerModal = useRegisterModal();
+  const checkEmailModal = useCheckEmailModal();
 
-  //   const formSchema = z.object({
-  //     email: z.string().email("Invalid email address"),
-  //   });
+  //   const [apiError, setApiError] = useState(false);
 
-  //   const handleSubmit = async () => {
-  //     const form = {
-  //       firstName,
-  //       lastName,
-  //       email,
-  //       message,
-  //     };
-  //     try {
-  //     } catch (error) {}
-  //   };
+  type InputErrorsType = {
+    email?: string[];
+  };
+  const [inputErrors, setInputErrors] = useState<InputErrorsType | null>(null);
+  const formSchema = z.object({
+    email: z.string().email("Invalid email address"),
+  });
+
+  const handleSubmit = async () => {
+    const form = {
+      email,
+    };
+    const formSchemaResults = formSchema.safeParse(form);
+    if (!formSchemaResults.success) {
+      setInputErrors(formSchemaResults.error.formErrors.fieldErrors);
+      return;
+    } else {
+      setInputErrors(null);
+    }
+
+    try {
+      checkEmailModal.setOpen = true;
+      setEmail("");
+    } catch (error) {}
+  };
   const renderContent = () => (
     <div className="flex flex-col items-center">
       <Logo />
@@ -63,14 +78,21 @@ const RegisterModal: React.FC = () => {
       size="lg"
       text="Continue"
       className="w-full"
-      onClick={registerModal.setClose}
-      //   onClick={handleSubmit}
+      //   onClick={registerModal.setClose}
+
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onClick={handleSubmit}
     />
   );
 
   return (
     <>
-      <Modal modal={registerModal} content={renderContent()} actions={renderActions()} />
+      <Modal
+        className="max-w-md"
+        modal={registerModal}
+        content={renderContent()}
+        actions={renderActions()}
+      />
     </>
   );
 };

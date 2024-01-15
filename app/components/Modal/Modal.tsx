@@ -5,14 +5,16 @@ import { Dialog, Transition } from "@headlessui/react";
 import { General } from "untitledui-js";
 import type { OpenCloseStore } from "@/app/hooks/useOpenClose";
 import type { ReactNode } from "react";
+import classNames from "classnames";
 
 interface ModalProps {
   content: ReactNode;
   actions: ReactNode;
   modal: OpenCloseStore;
+  className?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ content, actions, modal }) => {
+const Modal: React.FC<ModalProps> = ({ content, actions, modal, className }) => {
   return (
     <>
       <Transition.Root show={modal.isOpen} as={Fragment}>
@@ -40,7 +42,13 @@ const Modal: React.FC<ModalProps> = ({ content, actions, modal }) => {
                 leaveFrom="opacity-100 translate-y-0 scale-100"
                 leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
               >
-                <Dialog.Panel className="relative w-full max-w-sm transform overflow-hidden rounded-xl bg-white p-6 shadow-xl transition-all mobile:p-4 mobile:pt-5">
+                <Dialog.Panel
+                  className={classNames(
+                    "relative w-full transform overflow-hidden rounded-xl bg-white p-6 shadow-xl transition-all mobile:p-4 mobile:pt-5",
+                    className,
+                  )}
+                >
+                  {" "}
                   <button
                     type="button"
                     className="absolute right-3 top-3 block p-2"
@@ -49,7 +57,6 @@ const Modal: React.FC<ModalProps> = ({ content, actions, modal }) => {
                     <General.XClose className="h-6 w-6 stroke-gray-400" />
                   </button>
                   {content}
-
                   <div className="bg-white pt-8 mobile:pt-6">{actions}</div>
                 </Dialog.Panel>
               </Transition.Child>

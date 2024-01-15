@@ -10,6 +10,7 @@ import AvatarLabelGroup from "@/app/components/avatar/AvatarLabelGroup";
 import Logo from "@/app/components/Logo";
 import Dropdown from "@/app/components/dropdown/Dropdown";
 import classNames from "classnames";
+import { useRegisterModal } from "@/app/hooks/useOpenClose";
 
 interface NavigationItem {
   icon: JSX.Element;
@@ -25,6 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({ maxWidth }) => {
   const { data: sessionData } = useSession();
   const searchModal = useSearchModal();
   const mobleSidebarModal = useMobleSidebarModal();
+  const registerModal = useRegisterModal();
 
   const signedInNavigation: NavigationItem[] = [
     {
@@ -150,7 +152,7 @@ const Navbar: React.FC<NavbarProps> = ({ maxWidth }) => {
                 hierarchy="tertiary_gray"
                 size="lg"
                 text="Sign In"
-                onClick={() => void signIn()}
+                onClick={registerModal.setOpen}
               />
 
               <Button
@@ -158,7 +160,7 @@ const Navbar: React.FC<NavbarProps> = ({ maxWidth }) => {
                 hierarchy="primary"
                 size="lg"
                 text="Log In"
-                onClick={() => void signIn()}
+                onClick={registerModal.setOpen}
               />
             </>
           ) : null}
