@@ -26,6 +26,7 @@
     "react-dom": "^18",
     "storybook-dark-mode": "^3.0.3",
     "untitledui-js": "^2.0.74",
+    "zod": "^3.22.4",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
