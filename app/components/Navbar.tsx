@@ -107,74 +107,77 @@ const Navbar: React.FC<NavbarProps> = ({ maxWidth }) => {
   ];
   const Navigation = sessionData ? signedInNavigation : signedOutNavigation;
   return (
-    <nav className="fixed z-10 flex h-16 w-full justify-center border border-gray-200  bg-white p-2 shadow-sm desktop:h-18 desktop:px-8">
-      <div className={classNames("flex w-full items-center justify-between ", maxWidth)}>
-        <Logo className="hidden desktop:block" />
-        <button
-          onClick={searchModal.setOpen}
-          className="flex h-10 w-full flex-row gap-2 rounded-full border border-gray-300 p-2 pl-6 text-md text-gray-500 shadow-xs desktop:w-80"
-        >
-          <General.SearchMD className="stroke-current" />
-          <span>search</span>
-        </button>
-        <div className="hidden items-center gap-3 desktop:flex">
-          <Dropdown
-            button={
-              sessionData ? (
-                <Avatar size="md" src={sessionData?.user?.image || ""} alt="avatar" />
-              ) : (
-                <General.DotsVertical />
-              )
-            }
-            header={
-              sessionData ? (
-                <AvatarLabelGroup
-                  text={sessionData?.user.name || ""}
-                  supportingText={sessionData?.user.email || ""}
-                  size="md"
-                  avatar={<Avatar size="md" src={sessionData?.user?.image || ""} alt="avatar" />}
+    <>
+      <nav className="fixed z-10 flex h-16 w-full justify-center border border-gray-200 bg-white p-2 shadow-sm desktop:h-18 desktop:px-8">
+        <div className={classNames("flex w-full items-center justify-between ", maxWidth)}>
+          <Logo className="hidden desktop:block" />
+          <button
+            onClick={searchModal.setOpen}
+            className="flex h-10 w-full flex-row gap-2 rounded-full border border-gray-300 p-2 pl-6 text-md text-gray-500 shadow-xs desktop:w-80"
+          >
+            <General.SearchMD className="stroke-current" />
+            <span>search</span>
+          </button>
+          <div className="hidden items-center gap-3 desktop:flex">
+            <Dropdown
+              button={
+                sessionData ? (
+                  <Avatar size="md" src={sessionData?.user?.image || ""} alt="avatar" />
+                ) : (
+                  <General.DotsVertical />
+                )
+              }
+              header={
+                sessionData ? (
+                  <AvatarLabelGroup
+                    text={sessionData?.user.name || ""}
+                    supportingText={sessionData?.user.email || ""}
+                    size="md"
+                    avatar={<Avatar size="md" src={sessionData?.user?.image || ""} alt="avatar" />}
+                  />
+                ) : (
+                  <span className="font-semibold text-gray-700">Menu</span>
+                )
+              }
+              dropdownItems={Navigation.map((item) => ({
+                text: item.name,
+                icon: item.icon, // Replace 'icon-class-name' with the actual class name
+                href: item.path,
+                hasDivider: item.dividerBelow,
+              }))}
+            />
+            {!sessionData ? (
+              <>
+                <Button
+                  variant="default"
+                  hierarchy="tertiary_gray"
+                  size="lg"
+                  text="Sign In"
+                  onClick={registerModal.setOpen}
                 />
-              ) : (
-                <span className="font-semibold text-gray-700">Menu</span>
-              )
-            }
-            dropdownItems={Navigation.map((item) => ({
-              text: item.name,
-              icon: item.icon, // Replace 'icon-class-name' with the actual class name
-              href: item.path,
-              hasDivider: item.dividerBelow,
-            }))}
-          />
-          {!sessionData ? (
-            <>
-              <Button
-                variant="default"
-                hierarchy="tertiary_gray"
-                size="lg"
-                text="Sign In"
-                onClick={registerModal.setOpen}
-              />
 
-              <Button
-                variant="default"
-                hierarchy="primary"
-                size="lg"
-                text="Log In"
-                onClick={registerModal.setOpen}
-              />
-            </>
-          ) : null}
+                <Button
+                  variant="default"
+                  hierarchy="primary"
+                  size="lg"
+                  text="Log In"
+                  onClick={registerModal.setOpen}
+                />
+              </>
+            ) : null}
+          </div>
+          <Button
+            variant="iconOnly"
+            hierarchy="tertiary_gray"
+            size="md"
+            className="desktop:hidden"
+            leadingIcon={<General.Menu01 />}
+            onClick={mobleSidebarModal.setOpen}
+          />
         </div>
-        <Button
-          variant="iconOnly"
-          hierarchy="tertiary_gray"
-          size="md"
-          className="desktop:hidden"
-          leadingIcon={<General.Menu01 />}
-          onClick={mobleSidebarModal.setOpen}
-        />
-      </div>
-    </nav>
+      </nav>
+      <div className=" relative z-0 h-16 w-full  desktop:h-18 desktop:px-8"></div>
+    </>
   );
 };
 
