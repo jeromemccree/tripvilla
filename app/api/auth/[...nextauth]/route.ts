@@ -32,6 +32,14 @@ export const authOptions: NextAuthOptions = {
     },
   },
 
+  pages: {
+    signIn: "/",
+    // signOut: "/auth/signout",
+    // error: "/auth/error", // Error code passed in query string as ?error=
+    // verifyRequest: "/auth/verify-request", // (used for check email message)
+    // newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)
+  },
+
   // adapter: PrismaAdapter(prisma),
   providers: [
     // GoogleProvider({
@@ -56,6 +64,7 @@ export const authOptions: NextAuthOptions = {
         },
       },
       from: process.env.EMAIL_FROM,
+      maxAge: 10 * 60, // Magic links are valid for 10 min only
     }),
 
     /**

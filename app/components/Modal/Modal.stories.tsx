@@ -1,10 +1,10 @@
 import { type Meta, type StoryObj } from "@storybook/react";
-import SearchModal from "@/app/components/modal/SearchModal";
-import { useSearchModal } from "@/app/hooks/useOpenClose";
+import Modal from "@/app/components/modal/Modal";
+import { useModal } from "@/app/hooks/useOpenClose";
 
-const meta: Meta<typeof SearchModal> = {
-  title: "Components/Modal/SearchModal",
-  component: SearchModal,
+const meta: Meta<typeof Modal> = {
+  title: "components/modal/Modal",
+  component: Modal,
   parameters: {
     layout: "centered",
   },
@@ -14,17 +14,17 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 // Define a new component
 const Component: React.FC = () => {
-  const searchModal = useSearchModal();
+  const modal = useModal();
 
   return (
     <>
-      <button className="bg-red-400 text-lg" onClick={searchModal.setOpen}>
+      <button className="bg-red-400 text-lg" onClick={modal.setOpen}>
         Open Modal
       </button>
     </>
   );
 };
-export const Modal: Story = {
+export const Popup: Story = {
   render: () => {
     return (
       <div>

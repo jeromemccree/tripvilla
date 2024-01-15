@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useMobleSidebarModal } from "@/app/hooks/useOpenClose";
 import Button from "@/app/components/Button";
-import { Communication, General, Alerts, Maps, Users } from "untitledui-js";
+import { Communication, General, Alerts, Maps } from "untitledui-js";
 import Logo from "@/app/components/Logo";
 import AvatarLabelGroup from "@/app/components/avatar/AvatarLabelGroup";
 import { Avatar } from "@/app/components/avatar/Avatar";
