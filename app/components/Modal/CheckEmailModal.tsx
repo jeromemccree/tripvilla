@@ -3,7 +3,7 @@ import React from "react";
 import { Fragment } from "react";
 import { Dialog } from "@headlessui/react";
 import FeaturedIcon from "@/app/components/FeaturedIcon";
-import { General, Communication } from "untitledui-js";
+import { Communication } from "untitledui-js";
 import Button from "@/app/components/Button";
 import { useCheckEmailModal } from "@/app/hooks/useOpenClose";
 
@@ -27,21 +27,23 @@ const CheckEmailModal: React.FC = () => {
   );
 
   const renderActions = () => (
-    <div className="flex flex-row items-end gap-2">
-      <Button
-        variant="default"
-        hierarchy="secondary_gray"
-        size="lg"
-        text="Resend"
-        onClick={checkEmailModal.setClose}
-      />
-      <Button
-        variant="default"
-        hierarchy="primary"
-        size="lg"
-        text="Continue"
-        onClick={checkEmailModal.setClose}
-      />
+    <div className={"flex w-full justify-end"}>
+      <div className="flex flex-row gap-2">
+        <Button
+          variant="default"
+          hierarchy="secondary_gray"
+          size="lg"
+          text="Resend"
+          onClick={checkEmailModal.setClose}
+        />
+        <Button
+          variant="default"
+          hierarchy="primary"
+          size="lg"
+          text="Continue"
+          onClick={checkEmailModal.setClose}
+        />
+      </div>
     </div>
   );
   return (

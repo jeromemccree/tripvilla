@@ -1,8 +1,7 @@
-// import { prisma } from "@/lib/prisma";
-// import { PrismaAdapter } from "@auth/prisma-adapter";
-
-import NextAuth, { type NextAuthOptions, type DefaultSession } from "next-auth";
+import prisma from "@/app/libs/prismadb";
+import NextAuth, { type AuthOptions, type DefaultSession } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -20,7 +19,7 @@ declare module "next-auth" {
   }
 }
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: AuthOptions = {
   callbacks: {
     //? i beleive since user is returned by oAuth provider, we are trying to make it equal to the session object
     session({ session, user }) {
@@ -36,11 +35,11 @@ export const authOptions: NextAuthOptions = {
     signIn: "/",
     // signOut: "/auth/signout",
     // error: "/auth/error", // Error code passed in query string as ?error=
-    // verifyRequest: "/auth/verify-request", // (used for check email message)
+    // verifyRequest: "/", // (used for check email message)
     // newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)
   },
 
-  // adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma),
   providers: [
     // GoogleProvider({
     //   clientId: process.env.GOOGLE_CLIENT_ID,
@@ -78,12 +77,12 @@ export const authOptions: NextAuthOptions = {
      */
   ],
 
-  theme: {
-    colorScheme: "light", // "auto" | "dark" | "light"
-    brandColor: "#11999E", // Hex color code
-    logo: "https://res.cloudinary.com/dwczi6gl7/image/upload/v1682693884/vidplay_logo1_iwagju.svg", // Absolute URL to image
-    buttonText: "#FFFFFF", // Hex color code
-  },
+  // theme: {
+  //   colorScheme: "light", // "auto" | "dark" | "light"
+  //   brandColor: "#11999E", // Hex color code
+  //   logo: "https://res.cloudinary.com/dwczi6gl7/image/upload/v1682693884/vidplay_logo1_iwagju.svg", // Absolute URL to image
+  //   buttonText: "#FFFFFF", // Hex color code
+  // },
 };
 
 const handler = NextAuth(authOptions);

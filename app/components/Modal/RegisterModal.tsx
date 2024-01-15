@@ -11,11 +11,13 @@ import { InputField } from "@/app/components/Input";
 import { z } from "zod";
 import { useState } from "react";
 import { useCheckEmailModal } from "@/app/hooks/useOpenClose";
+import { signIn } from "next-auth/react";
 
 const RegisterModal: React.FC = () => {
   const [email, setEmail] = useState("");
   const registerModal = useRegisterModal();
   const checkEmailModal = useCheckEmailModal();
+  const [apiError, setApiError] = useState(false);
 
   //   const [apiError, setApiError] = useState(false);
 
@@ -23,6 +25,7 @@ const RegisterModal: React.FC = () => {
     email?: string[];
   };
   const [inputErrors, setInputErrors] = useState<InputErrorsType | null>(null);
+
   const formSchema = z.object({
     email: z.string().email("Invalid email address"),
   });
@@ -40,9 +43,15 @@ const RegisterModal: React.FC = () => {
     }
 
     try {
-      checkEmailModal.setOpen = true;
+      await signIn("email", { email, redirect: false });
+
+      // checkEmailModal.setOpen();
+      // registerModal.setClose();
+      setApiError(false);
       setEmail("");
-    } catch (error) {}
+    } catch (error) {
+      setApiError(true);
+    }
   };
   const renderContent = () => (
     <div className="flex flex-col items-center">
@@ -72,17 +81,25 @@ const RegisterModal: React.FC = () => {
   );
 
   const renderActions = () => (
-    <Button
-      variant="default"
-      hierarchy="primary"
-      size="lg"
-      text="Continue"
-      className="w-full"
-      //   onClick={registerModal.setClose}
+    <>
+      <Button
+        variant="default"
+        hierarchy="primary"
+        size="lg"
+        text="Continue"
+        className="w-full"
+        //   onClick={registerModal.setClose}
 
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      onClick={handleSubmit}
-    />
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onClick={handleSubmit}
+      />
+
+      {apiError ? (
+        <p className="pt-2 text-sm text-error-500">
+          Oops something went wrong, please try again later
+        </p>
+      ) : null}
+    </>
   );
 
   return (
