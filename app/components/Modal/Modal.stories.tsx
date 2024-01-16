@@ -1,10 +1,14 @@
 import { type Meta, type StoryObj } from "@storybook/react";
-import Modal from "@/app/components/modal/Modal";
-import { useModal } from "@/app/hooks/useOpenClose";
+import {
+  useMobileSidebarModal,
+  useSearchModal,
+  useRegisterModal,
+  useCheckEmailModal,
+  useCompleteProfileModal,
+} from "@/app/hooks/useOpenClose";
 
-const meta: Meta<typeof Modal> = {
-  title: "components/modal/Modal",
-  component: Modal,
+const meta: Meta = {
+  title: "components/Modal",
   parameters: {
     layout: "centered",
   },
@@ -12,23 +16,65 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-// Define a new component
-const Component: React.FC = () => {
-  const modal = useModal();
 
+// Define a new component
+interface ComponentProps {
+  useModalHook: () => { setOpen: () => void };
+}
+
+const ModalButton: React.FC<ComponentProps> = ({ useModalHook }) => {
+  const { setOpen } = useModalHook();
   return (
     <>
-      <button className="bg-red-400 text-lg" onClick={modal.setOpen}>
+      <button className="border bg-red-400 text-lg" onClick={setOpen}>
         Open Modal
       </button>
     </>
   );
 };
-export const Popup: Story = {
+
+export const MobileSidebar: Story = {
   render: () => {
     return (
       <div>
-        <Component />
+        <ModalButton useModalHook={useMobileSidebarModal} />
+      </div>
+    );
+  },
+};
+
+export const Register: Story = {
+  render: () => {
+    return (
+      <div>
+        <ModalButton useModalHook={useRegisterModal} />
+      </div>
+    );
+  },
+};
+export const CheckEmail: Story = {
+  render: () => {
+    return (
+      <div>
+        <ModalButton useModalHook={useCheckEmailModal} />
+      </div>
+    );
+  },
+};
+export const Search: Story = {
+  render: () => {
+    return (
+      <div>
+        <ModalButton useModalHook={useSearchModal} />
+      </div>
+    );
+  },
+};
+export const CompleteProfile: Story = {
+  render: () => {
+    return (
+      <div>
+        <ModalButton useModalHook={useCompleteProfileModal} />
       </div>
     );
   },

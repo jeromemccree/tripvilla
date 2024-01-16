@@ -3,7 +3,7 @@ import React from "react";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useMobleSidebarModal } from "@/app/hooks/useOpenClose";
+import { useMobileSidebarModal } from "@/app/hooks/useOpenClose";
 import Button from "@/app/components/Button";
 import { Communication, General, Alerts, Maps } from "untitledui-js";
 import Logo from "@/app/components/Logo";
@@ -13,7 +13,7 @@ import { useRouter, usePathname } from "next/navigation";
 import classNames from "classnames";
 
 const MobileSidebarModal: React.FC = () => {
-  const mobleSidebarModal = useMobleSidebarModal();
+  const mobileSidebarModal = useMobileSidebarModal();
   const { data: sessionData } = useSession();
   const router = useRouter();
   const pathname = usePathname();
@@ -102,10 +102,15 @@ const MobileSidebarModal: React.FC = () => {
       </div>
     );
   };
+  // const currentModal =
+  //   mobileSidebarModal.modalStack.length > 0
+  //     ? mobileSidebarModal.modalStack[mobileSidebarModal.modalStack.length - 1]
+  //     : false;
+
   return (
     <>
-      <Transition.Root show={mobleSidebarModal.isOpen} as={Fragment}>
-        <Dialog as="div" className="lg:hidden relative z-50" onClose={mobleSidebarModal.setClose}>
+      <Transition.Root show={mobileSidebarModal.isOpen} as={Fragment}>
+        <Dialog as="div" className="lg:hidden relative z-50" onClose={mobileSidebarModal.setClose}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
@@ -139,7 +144,7 @@ const MobileSidebarModal: React.FC = () => {
                   leaveTo="opacity-0"
                 >
                   <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
-                    <button type="button" className="" onClick={mobleSidebarModal.setClose}>
+                    <button type="button" className="" onClick={mobileSidebarModal.setClose}>
                       <General.XClose className="stroke-white" />
                     </button>
                   </div>

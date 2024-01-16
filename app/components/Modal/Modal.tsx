@@ -15,6 +15,12 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ content, actions, modal, className }) => {
+  // const currentModal =
+  //   modal.modalStack.length > 0 ? modal.modalStack[modal.modalStack.length - 1] : "";
+
+  // console.log("currentModal");
+  // console.log(currentModal);
+
   return (
     <>
       <Transition.Root show={modal.isOpen} as={Fragment}>

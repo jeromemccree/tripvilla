@@ -34,18 +34,18 @@ const RegisterModal: React.FC = () => {
     const form = {
       email,
     };
-    const formSchemaResults = formSchema.safeParse(form);
-    if (!formSchemaResults.success) {
-      setInputErrors(formSchemaResults.error.formErrors.fieldErrors);
-      return;
-    } else {
-      setInputErrors(null);
-    }
+    // const formSchemaResults = formSchema.safeParse(form);
+    // if (!formSchemaResults.success) {
+    //   setInputErrors(formSchemaResults.error.formErrors.fieldErrors);
+    //   return;
+    // } else {
+    //   setInputErrors(null);
+    // }
 
     try {
-      await signIn("email", { email, redirect: false });
+      // await signIn("email", { email, redirect: false });
 
-      // checkEmailModal.setOpen();
+      checkEmailModal.setOpen();
       // registerModal.setClose();
       setApiError(false);
       setEmail("");
@@ -56,7 +56,7 @@ const RegisterModal: React.FC = () => {
   const renderContent = () => (
     <div className="flex flex-col items-center">
       <Logo />
-      <div className="flex w-full flex-col gap-1 pt-4 text-center">
+      <div className="flex w-full flex-col gap-1 py-4 text-center">
         <Dialog.Title as="h3" className="text-lg font-semibold leading-7 text-gray-900">
           Log in or Sign Up
         </Dialog.Title>
@@ -69,8 +69,7 @@ const RegisterModal: React.FC = () => {
         id="email"
         name="email"
         type="email"
-        placeholder="you@example.com"
-        label="Email"
+        placeholder="Enter your email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         icon={<Communication.Mail01 />}

@@ -6,12 +6,14 @@ import classNames from "classnames";
 const Input: React.FC<{
   children: React.ReactNode;
   hint?: string;
-  label: string;
+  label?: string;
   isDestructive?: boolean;
 }> = ({ children, hint, label, isDestructive = false }) => {
   return (
     <div className="flex w-full flex-col gap-2">
-      <label className="block text-sm font-medium leading-5 text-gray-700">{label}</label>
+      {label ? (
+        <label className="block text-sm font-medium leading-5 text-gray-700">{label}</label>
+      ) : null}
       <div className="relative">{children}</div>
       {hint ? (
         <p className={classNames("text-sm", isDestructive ? "text-error-500" : "text-gray-500")}>
@@ -33,7 +35,7 @@ export const InputField: React.FC<{
   type?: string;
   placeholder?: string;
   hint?: string;
-  label: string;
+  label?: string;
   isDestructive?: boolean;
   value: string;
   icon?: React.ReactNode;

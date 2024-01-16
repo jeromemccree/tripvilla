@@ -4,7 +4,7 @@ import { Communication, General, Alerts, Maps, Users } from "untitledui-js";
 import { useSession, signIn } from "next-auth/react";
 import Button from "@/app/components/Button";
 import { useSearchModal } from "@/app/hooks/useOpenClose";
-import { useMobleSidebarModal } from "@/app/hooks/useOpenClose";
+import { useMobileSidebarModal } from "@/app/hooks/useOpenClose";
 import { Avatar } from "@/app/components/avatar/Avatar";
 import AvatarLabelGroup from "@/app/components/avatar/AvatarLabelGroup";
 import Logo from "@/app/components/Logo";
@@ -25,7 +25,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ maxWidth }) => {
   const { data: sessionData } = useSession();
   const searchModal = useSearchModal();
-  const mobleSidebarModal = useMobleSidebarModal();
+  const mobileSidebarModal = useMobileSidebarModal();
   const registerModal = useRegisterModal();
 
   const signedInNavigation: NavigationItem[] = [
@@ -172,7 +172,7 @@ const Navbar: React.FC<NavbarProps> = ({ maxWidth }) => {
             size="md"
             className="desktop:hidden"
             leadingIcon={<General.Menu01 />}
-            onClick={mobleSidebarModal.setOpen}
+            onClick={mobileSidebarModal.setOpen}
           />
         </div>
       </nav>
