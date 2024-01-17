@@ -12,12 +12,13 @@ import { z } from "zod";
 import { useState } from "react";
 import { useCheckEmailModal } from "@/app/hooks/useOpenClose";
 import { signIn } from "next-auth/react";
+import { useEmailSelect } from "@/app/hooks/useEmailSelect";
 
 const RegisterModal: React.FC = () => {
-  const [email, setEmail] = useState("");
   const registerModal = useRegisterModal();
   const checkEmailModal = useCheckEmailModal();
   const [apiError, setApiError] = useState(false);
+  const { email, setEmail } = useEmailSelect();
 
   //   const [apiError, setApiError] = useState(false);
 
@@ -25,7 +26,6 @@ const RegisterModal: React.FC = () => {
     email?: string[];
   };
   const [inputErrors, setInputErrors] = useState<InputErrorsType | null>(null);
-
   const formSchema = z.object({
     email: z.string().email("Invalid email address"),
   });
@@ -34,21 +34,20 @@ const RegisterModal: React.FC = () => {
     const form = {
       email,
     };
-    // const formSchemaResults = formSchema.safeParse(form);
-    // if (!formSchemaResults.success) {
-    //   setInputErrors(formSchemaResults.error.formErrors.fieldErrors);
-    //   return;
-    // } else {
-    //   setInputErrors(null);
-    // }
+
+    const formSchemaResults = formSchema.safeParse(form);
+    if (!formSchemaResults.success) {
+      setInputErrors(formSchemaResults.error.formErrors.fieldErrors);
+      return;
+    } else {
+      setInputErrors(null);
+    }
 
     try {
-      // await signIn("email", { email, redirect: false });
-
+      await signIn("email", { email, redirect: false });
       checkEmailModal.setOpen();
-      // registerModal.setClose();
+      registerModal.setClose();
       setApiError(false);
-      setEmail("");
     } catch (error) {
       setApiError(true);
     }

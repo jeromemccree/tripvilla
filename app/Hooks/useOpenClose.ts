@@ -1,4 +1,3 @@
-import { m } from "framer-motion";
 import { create } from "zustand";
 
 export type OpenCloseStore = {
@@ -20,6 +19,7 @@ export const useSearchModal = createOpenCloseStore();
 export const useMobileSidebarModal = createOpenCloseStore();
 export const useRegisterModal = createOpenCloseStore();
 export const useCompleteProfileModal = createOpenCloseStore();
+export const useCropImageModal = createOpenCloseStore();
 
 // export type OpenCloseStore = {
 //   name: string;

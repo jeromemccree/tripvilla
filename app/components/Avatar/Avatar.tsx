@@ -21,6 +21,7 @@ export type AvatarProps = {
   size: keyof typeof Options.size;
   src?: string;
   alt?: string;
+  className?: string;
   placeholder?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 };
@@ -39,10 +40,10 @@ const sizeValues = {
 
 const createAvatar = (
   sizeValues: { [key: string]: { image: number; icon: number } },
-  className: string,
+  borderColor: string,
   displayName: string,
 ) => {
-  const Component = ({ size, src, alt, placeholder, onClick }: AvatarProps) => {
+  const Component = ({ size, src, alt, placeholder, onClick, className }: AvatarProps) => {
     const sizeValue = sizeValues[size]?.image;
     const iconSizeValue = sizeValues[size]?.icon;
     return (
@@ -50,6 +51,7 @@ const createAvatar = (
         style={{ width: sizeValue, height: sizeValue }}
         className={classNames(
           "inline-block flex flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-opacity-10 focus:border-4 focus:border-gray-300 focus:border-opacity-20",
+          borderColor,
           className,
           placeholder ? "bg-gray-100" : "",
           sizeValue,

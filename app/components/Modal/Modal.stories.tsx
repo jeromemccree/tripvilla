@@ -5,6 +5,7 @@ import {
   useRegisterModal,
   useCheckEmailModal,
   useCompleteProfileModal,
+  useCropImageModal,
 } from "@/app/hooks/useOpenClose";
 
 const meta: Meta = {
@@ -13,6 +14,7 @@ const meta: Meta = {
     layout: "centered",
   },
 };
+
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -75,6 +77,15 @@ export const CompleteProfile: Story = {
     return (
       <div>
         <ModalButton useModalHook={useCompleteProfileModal} />
+      </div>
+    );
+  },
+};
+export const CropImage: Story = {
+  render: () => {
+    return (
+      <div>
+        <ModalButton useModalHook={useCropImageModal} />
       </div>
     );
   },

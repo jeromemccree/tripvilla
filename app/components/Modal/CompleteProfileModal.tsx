@@ -3,18 +3,22 @@ import React from "react";
 import { Fragment } from "react";
 import { Dialog } from "@headlessui/react";
 import Button from "@/app/components/Button";
-import { useCompleteProfileModal } from "@/app/hooks/useOpenClose";
+import { useCompleteProfileModal, useCropImageModal } from "@/app/hooks/useOpenClose";
 import Modal from "@/app/components/modal/Modal";
 import { InputField } from "@/app/components/Input";
 import { z } from "zod";
 import { useState } from "react";
 import { Users } from "untitledui-js";
 import { Avatar } from "@/app/components/avatar/Avatar";
+import { General } from "untitledui-js";
+import { useImageSelect } from "@/app/hooks/useImageSelect";
 
 const CompleteProfileModal: React.FC = () => {
   const [name, setName] = useState("");
   const completeProfileModal = useCompleteProfileModal();
+  const cropImageModal = useCropImageModal();
   const [apiError, setApiError] = useState(false);
+  const { image, setImage } = useImageSelect();
 
   type InputErrorsType = {
     name?: string[];
@@ -28,6 +32,16 @@ const CompleteProfileModal: React.FC = () => {
       })
       .min(2, { message: "Must be 2 or more characters long" }),
   });
+
+  const handleImageSelect = (inputImage: File) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImage(reader.result as string);
+    };
+    reader.readAsDataURL(inputImage);
+    cropImageModal.setOpen();
+    completeProfileModal.setClose();
+  };
 
   const handleSubmit = async () => {
     const form = {
@@ -62,14 +76,33 @@ const CompleteProfileModal: React.FC = () => {
           Choose a name and profile pic
         </Dialog.Description>
       </div>
-      <Avatar size="2xl" src="" />
-
-      
-
-
-
-
-
+      <div className="flex w-full flex-row content-center justify-center gap-5  pb-4">
+        <Avatar size="profileMd" className="self-center" src="" />
+        <div className="flex w-full justify-center rounded-lg border  border-gray-200 px-6 py-10">
+          <div className="text-center">
+            <div className="mt-4 flex text-sm leading-6 text-gray-600">
+              <div className="rounded-lg border border-gray-200 p-2.5 shadow-xs">
+                <General.UploadCloud02 />
+              </div>
+              <label
+                htmlFor="file-upload"
+                className="relative cursor-pointer rounded-md bg-white font-semibold text-brand-700 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+              >
+                <span>Upload a file</span>
+                <input
+                  id="file-upload"
+                  name="file-upload"
+                  type="file"
+                  className="sr-only"
+                  onChange={(e) => handleImageSelect(e.target.files[0])}
+                />
+              </label>
+              <p className="pl-1">or drag and drop</p>
+            </div>
+            <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+          </div>
+        </div>
+      </div>
       <InputField
         id="name"
         name="name"

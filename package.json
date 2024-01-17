@@ -23,9 +23,11 @@
     "next-auth": "^4.24.5",
     "nodemailer": "^6.9.7",
     "react": "^18",
+    "react-cropper": "^2.3.3",
     "react-dom": "^18",
     "storybook-dark-mode": "^3.0.3",
     "untitledui-js": "^2.0.74",
+    "use-timer": "^2.0.1",
     "zod": "^3.22.4",
     "zustand": "^4.4.7"
   },
