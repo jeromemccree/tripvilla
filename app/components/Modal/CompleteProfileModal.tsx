@@ -10,8 +10,8 @@ import { z } from "zod";
 import { useState } from "react";
 import { Users } from "untitledui-js";
 import { Avatar } from "@/app/components/avatar/Avatar";
-import { General } from "untitledui-js";
 import { useImageSelect } from "@/app/hooks/useImageSelect";
+import FileUpload from "../FileUpload";
 
 const CompleteProfileModal: React.FC = () => {
   const [name, setName] = useState("");
@@ -78,30 +78,7 @@ const CompleteProfileModal: React.FC = () => {
       </div>
       <div className="flex w-full flex-row content-center justify-center gap-5  pb-4">
         <Avatar size="profileMd" className="self-center" src={image} />
-        <div className="flex w-full justify-center rounded-lg border  border-gray-200 px-6 py-10">
-          <div className="text-center">
-            <div className="mt-4 flex text-sm leading-6 text-gray-600">
-              <div className="m-2.5 rounded-lg border border-gray-200 shadow-xs">
-                <General.UploadCloud02 className="stroke-gray-700" />
-              </div>
-              <label
-                htmlFor="file-upload"
-                className="relative cursor-pointer rounded-md bg-white font-semibold text-brand-700 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-              >
-                <span>Upload a file</span>
-                <input
-                  id="file-upload"
-                  name="file-upload"
-                  type="file"
-                  className="sr-only"
-                  onChange={(e) => handleImageSelect(e.target.files[0] as File)}
-                />
-              </label>
-              <p className="pl-1">or drag and drop</p>
-            </div>
-            <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-          </div>
-        </div>
+        <FileUpload onChange={(e) => handleImageSelect(e.target.files[0] as File)} />
       </div>
       <InputField
         id="name"

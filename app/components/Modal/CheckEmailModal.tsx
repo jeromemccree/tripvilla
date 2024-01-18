@@ -23,6 +23,14 @@ const CheckEmailModal: React.FC = () => {
   //   start();
   // }, []);
 
+  const handleClick = async () => {
+    if (status === "STOPPED") {
+      await signIn("email", { email, redirect: false });
+      reset();
+      start();
+    }
+  };
+
   const renderContent = () => (
     <div className="flex flex-row  gap-4 mobile:flex-col mobile:gap-3">
       <FeaturedIcon size="lg" color="gray" theme="modern" icon={<Communication.Mail01 />} />
@@ -47,13 +55,8 @@ const CheckEmailModal: React.FC = () => {
           size="lg"
           text="Resend"
           className="mobile:w-full"
-          onClick={() => {
-            if (status === "STOPPED") {
-              signIn("email", { email, redirect: false });
-              reset();
-              start();
-            }
-          }}
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onClick={handleClick}
         />
         <Button
           variant="default"
