@@ -19,9 +19,9 @@ const CheckEmailModal: React.FC = () => {
     endTime: 0,
     timerType: "DECREMENTAL",
   });
-  useEffect(() => {
-    start();
-  }, []);
+  // useEffect(() => {
+  //   start();
+  // }, []);
 
   const renderContent = () => (
     <div className="flex flex-row  gap-4 mobile:flex-col mobile:gap-3">

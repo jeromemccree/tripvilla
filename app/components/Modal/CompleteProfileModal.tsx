@@ -18,7 +18,7 @@ const CompleteProfileModal: React.FC = () => {
   const completeProfileModal = useCompleteProfileModal();
   const cropImageModal = useCropImageModal();
   const [apiError, setApiError] = useState(false);
-  const { image, setImage } = useImageSelect();
+  const { image, setImage, setAspectRatio } = useImageSelect();
 
   type InputErrorsType = {
     name?: string[];
@@ -34,6 +34,7 @@ const CompleteProfileModal: React.FC = () => {
   });
 
   const handleImageSelect = (inputImage: File) => {
+    setAspectRatio(16 / 9);
     const reader = new FileReader();
     reader.onloadend = () => {
       setImage(reader.result as string);

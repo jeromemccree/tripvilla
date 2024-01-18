@@ -7,6 +7,7 @@ import {
   useCompleteProfileModal,
   useCropImageModal,
 } from "@/app/hooks/useOpenClose";
+import { useImageSelect } from "@/app/hooks/useImageSelect";
 
 const meta: Meta = {
   title: "components/Modal",
@@ -26,6 +27,7 @@ interface ComponentProps {
 
 const ModalButton: React.FC<ComponentProps> = ({ useModalHook }) => {
   const { setOpen } = useModalHook();
+
   return (
     <>
       <button className="border bg-red-400 text-lg" onClick={setOpen}>
@@ -81,10 +83,29 @@ export const CompleteProfile: Story = {
     );
   },
 };
+
 export const CropImage: Story = {
   render: () => {
+    const SelectImage = () => {
+      const { image, setImage } = useImageSelect();
+      const uploadedImage =
+        "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg";
+      const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.preventDefault();
+        setImage(uploadedImage);
+      };
+      return (
+        <>
+          <img src={image as string} className="h-10 w-10 " />
+          <button className="border bg-blue-400 text-lg" onClick={handleClick}>
+            set State
+          </button>
+        </>
+      );
+    };
     return (
       <div>
+        <SelectImage />
         <ModalButton useModalHook={useCropImageModal} />
       </div>
     );

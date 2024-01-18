@@ -15,8 +15,7 @@ import "cropperjs/dist/cropper.css";
 const CropImageModal: React.FC = () => {
   const cropImageModal = useCropImageModal();
   const completeProfileModal = useCompleteProfileModal();
-  const { image, setImage } = useImageSelect();
-
+  const { image, setImage, aspectRatio } = useImageSelect();
   const cropperRef = useRef<ReactCropperElement>(null);
   const onCrop = () => {
     const cropper = cropperRef.current?.cropper;
@@ -33,19 +32,18 @@ const CropImageModal: React.FC = () => {
             Crop Image
           </Dialog.Title>
           <Dialog.Description className="text-sm text-gray-600">
-            Upload your image <br /> Image text is below
-            {/* {image} */}
+            Upload your image
           </Dialog.Description>
         </div>
       </div>
       <Cropper
-        src={image}
+        src={image as string}
         style={{ height: 400, width: "100%" }}
         // Cropper.js options
-        initialAspectRatio={16 / 9}
-        guides={false}
-        crop={onCrop}
-        ref={cropperRef}
+        aspectRatio={aspectRatio}
+        // guides={false}
+        // crop={onCrop}
+        // ref={cropperRef}
       />
     </>
   );
