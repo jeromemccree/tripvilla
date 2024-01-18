@@ -7,7 +7,7 @@ import { useCropImageModal } from "@/app/hooks/useOpenClose";
 import Modal from "@/app/components/modal/Modal";
 import { useImageSelect } from "@/app/hooks/useImageSelect";
 import { Editor } from "untitledui-js";
-import Cropper, { ReactCropperElement } from "react-cropper";
+import Cropper, { type ReactCropperElement } from "react-cropper";
 import { useCompleteProfileModal } from "@/app/hooks/useOpenClose";
 
 import "cropperjs/dist/cropper.css";
@@ -17,12 +17,14 @@ const CropImageModal: React.FC = () => {
   const completeProfileModal = useCompleteProfileModal();
   const { image, setImage, aspectRatio } = useImageSelect();
   const cropperRef = useRef<ReactCropperElement>(null);
-  const onCrop = () => {
-    const cropper = cropperRef.current?.cropper;
-    setImage(cropper);
+
+  const handleSubmit = () => {
+    const cropper = cropperRef.current?.cropper.getCroppedCanvas().toDataURL();
+    setImage(cropper as string);
     completeProfileModal.setOpen();
     cropImageModal.setClose();
   };
+
   const renderContent = () => (
     <>
       <div className="flex flex-row  gap-4 mobile:flex-col mobile:gap-3">
@@ -41,9 +43,8 @@ const CropImageModal: React.FC = () => {
         style={{ height: 400, width: "100%" }}
         // Cropper.js options
         aspectRatio={aspectRatio}
-        // guides={false}
-        // crop={onCrop}
-        // ref={cropperRef}
+        guides={true}
+        ref={cropperRef}
       />
     </>
   );
@@ -65,7 +66,7 @@ const CropImageModal: React.FC = () => {
           size="lg"
           text="Save Changes"
           className="mobile:w-full"
-          onClick={cropImageModal.setClose}
+          onClick={handleSubmit}
         />
       </div>
     </div>

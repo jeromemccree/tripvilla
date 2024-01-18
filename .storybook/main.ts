@@ -22,11 +22,7 @@ const config: StorybookConfig = {
   },
   framework: {
     name: "@storybook/nextjs",
-    options: {
-      builder: {
-        useSWC: true, // Enables SWC support
-      },
-    },
+    options: {},
   },
   stories: [
     {

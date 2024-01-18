@@ -58,8 +58,8 @@ const CompleteProfileModal: React.FC = () => {
 
     try {
       // await signIn("name", { name, redirect: false });
-      // checkEmailModal.setOpen();
-      // completeProfileModal.setClose();
+      // checkEmailModal.setOpen;
+      // completeProfileModal.setClose;
       setApiError(false);
       setName("");
     } catch (error) {
@@ -78,7 +78,7 @@ const CompleteProfileModal: React.FC = () => {
         </Dialog.Description>
       </div>
       <div className="flex w-full flex-row content-center justify-center gap-5  pb-4">
-        <Avatar size="profileMd" className="self-center" src="" />
+        <Avatar size="profileMd" className="self-center" src={image} />
         <div className="flex w-full justify-center rounded-lg border  border-gray-200 px-6 py-10">
           <div className="text-center">
             <div className="mt-4 flex text-sm leading-6 text-gray-600">
@@ -95,7 +95,7 @@ const CompleteProfileModal: React.FC = () => {
                   name="file-upload"
                   type="file"
                   className="sr-only"
-                  onChange={(e) => handleImageSelect(e.target.files[0])}
+                  onChange={(e) => handleImageSelect(e.target.files[0] as File)}
                 />
               </label>
               <p className="pl-1">or drag and drop</p>
@@ -134,6 +134,7 @@ const CompleteProfileModal: React.FC = () => {
           hierarchy="primary"
           size="lg"
           text="Complete"
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={handleSubmit}
         />
       </div>

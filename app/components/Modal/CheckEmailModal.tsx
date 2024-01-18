@@ -69,12 +69,12 @@ const CheckEmailModal: React.FC = () => {
   );
   return (
     <>
-      <Modal
+      {/* <Modal
         className="max-w-xl"
         modal={checkEmailModal}
         content={renderContent()}
         actions={renderActions()}
-      />
+      /> */}
     </>
   );
 };

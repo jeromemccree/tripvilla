@@ -45,8 +45,8 @@ const RegisterModal: React.FC = () => {
 
     try {
       await signIn("email", { email, redirect: false });
-      checkEmailModal.setOpen();
-      registerModal.setClose();
+      checkEmailModal.setOpen;
+      registerModal.setClose;
       setApiError(false);
     } catch (error) {
       setApiError(true);
