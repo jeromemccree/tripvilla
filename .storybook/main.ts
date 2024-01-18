@@ -9,7 +9,6 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
     "@storybook/addon-styling-webpack",
-    "@storybook/addon-viewport",
     "@tomfreudenberg/next-auth-mock/storybook",
   ],
   webpackFinal: async (config: Configuration): Promise<Configuration> => {
@@ -22,7 +21,11 @@ const config: StorybookConfig = {
   },
   framework: {
     name: "@storybook/nextjs",
-    options: {},
+    options: {
+      builder: {
+        useSWC: true, // Enables SWC support
+      },
+    },
   },
   stories: [
     {

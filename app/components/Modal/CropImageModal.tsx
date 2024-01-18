@@ -43,8 +43,14 @@ const CropImageModal: React.FC = () => {
         style={{ height: 400, width: "100%" }}
         // Cropper.js options
         aspectRatio={aspectRatio}
+        viewMode={3}
         guides={true}
         ref={cropperRef}
+        autoCropArea={0.7}
+        minCropBoxHeight={100}
+        minCropBoxWidth={100}
+        responsive={true}
+        autoCrop={true}
       />
     </>
   );

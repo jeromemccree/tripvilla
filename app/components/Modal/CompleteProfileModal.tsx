@@ -34,7 +34,6 @@ const CompleteProfileModal: React.FC = () => {
   });
 
   const handleImageSelect = (inputImage: File) => {
-    setAspectRatio(16 / 9);
     const reader = new FileReader();
     reader.onloadend = () => {
       setImage(reader.result as string);

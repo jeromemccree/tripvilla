@@ -14,12 +14,6 @@ const preview: Preview = {
     ),
   ],
   parameters: {
-    viewport: {
-      viewports: {
-        ...INITIAL_VIEWPORTS,
-        ...MINIMAL_VIEWPORTS,
-      },
-    },
     themes: {
       themeOverride: "dark", // component level override
     },
