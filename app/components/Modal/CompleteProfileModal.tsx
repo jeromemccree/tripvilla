@@ -66,8 +66,8 @@ const CompleteProfileModal: React.FC = () => {
     }
   };
   const renderContent = () => (
-    <div className="">
-      <div className="flex w-full flex-col gap-1 pb-4">
+    <div className="space-y-4">
+      <div className="w-full space-y-1">
         <Dialog.Title as="h3" className="text-lg font-semibold leading-7 text-gray-900">
           Complete your profile{" "}
         </Dialog.Title>
@@ -76,22 +76,27 @@ const CompleteProfileModal: React.FC = () => {
           Choose a name and profile pic
         </Dialog.Description>
       </div>
-      <div className="flex w-full flex-row content-center justify-center gap-5  pb-4">
-        <Avatar size="profileMd" className="self-center" src={image} />
-        <FileUpload onChange={(e) => handleImageSelect(e.target.files[0] as File)} />
+      <div className="space-y-4">
+        <div className="flex h-fit w-full flex-row items-center gap-5">
+          <Avatar size="profileMd" className="self-center" src={image} />
+          <FileUpload
+            className="self-center"
+            onChange={(e) => handleImageSelect(e.target.files[0] as File)}
+          />
+        </div>
+        <InputField
+          id="name"
+          name="name"
+          type="name"
+          label="Name"
+          placeholder="Enter your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          icon={<Users.User01 />}
+          isDestructive={inputErrors?.name !== undefined}
+          hint={inputErrors?.name?.toString()}
+        />{" "}
       </div>
-      <InputField
-        id="name"
-        name="name"
-        type="name"
-        label="Name"
-        placeholder="Enter your name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        icon={<Users.User01 />}
-        isDestructive={inputErrors?.name !== undefined}
-        hint={inputErrors?.name?.toString()}
-      />{" "}
     </div>
   );
 
