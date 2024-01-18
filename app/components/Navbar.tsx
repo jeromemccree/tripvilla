@@ -109,7 +109,7 @@ const Navbar: React.FC<NavbarProps> = ({ maxWidth }) => {
   return (
     <>
       <nav className="fixed z-10 flex h-16 w-full justify-center border border-gray-200 bg-white p-2 shadow-sm desktop:h-18 desktop:px-8">
-        <div className={classNames("flex w-full items-center justify-between ", maxWidth)}>
+        <div className={classNames("flex w-full items-center justify-between", maxWidth)}>
           <Logo className="hidden desktop:block" />
           <button
             onClick={searchModal.setOpen}
