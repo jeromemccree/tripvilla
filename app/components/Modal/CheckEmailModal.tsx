@@ -25,7 +25,7 @@ const CheckEmailModal: React.FC = () => {
 
   const renderContent = () => (
     <div className="flex flex-row  gap-4 mobile:flex-col mobile:gap-3">
-      <FeaturedIcon size="lg" color="brand" icon={<Communication.Mail01 />} />
+      <FeaturedIcon size="lg" color="gray" theme="modern" icon={<Communication.Mail01 />} />
       <div className="flex flex-col gap-1 text-start">
         <Dialog.Title as="h3" className="text-lg font-semibold leading-7 text-gray-900">
           Please check your
@@ -49,7 +49,6 @@ const CheckEmailModal: React.FC = () => {
           className="mobile:w-full"
           onClick={() => {
             if (status === "STOPPED") {
-              // alert("resend to " + email);
               signIn("email", { email, redirect: false });
               reset();
               start();
@@ -69,12 +68,12 @@ const CheckEmailModal: React.FC = () => {
   );
   return (
     <>
-      {/* <Modal
+      <Modal
         className="max-w-xl"
         modal={checkEmailModal}
         content={renderContent()}
         actions={renderActions()}
-      /> */}
+      />
     </>
   );
 };

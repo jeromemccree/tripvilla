@@ -81,8 +81,8 @@ const CompleteProfileModal: React.FC = () => {
         <div className="flex w-full justify-center rounded-lg border  border-gray-200 px-6 py-10">
           <div className="text-center">
             <div className="mt-4 flex text-sm leading-6 text-gray-600">
-              <div className="rounded-lg border border-gray-200 p-2.5 shadow-xs">
-                <General.UploadCloud02 />
+              <div className="m-2.5 rounded-lg border border-gray-200 shadow-xs">
+                <General.UploadCloud02 className="stroke-gray-700" />
               </div>
               <label
                 htmlFor="file-upload"

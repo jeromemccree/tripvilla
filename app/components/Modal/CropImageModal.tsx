@@ -28,7 +28,7 @@ const CropImageModal: React.FC = () => {
   const renderContent = () => (
     <>
       <div className="flex flex-row  gap-4 mobile:flex-col mobile:gap-3">
-        <FeaturedIcon size="lg" color="brand" icon={<Editor.Crop01 />} />
+        <FeaturedIcon size="lg" color="gray" theme="modern" icon={<Editor.Crop01 />} />
         <div className="flex flex-col gap-1 text-start">
           <Dialog.Title as="h3" className="text-lg font-semibold leading-7 text-gray-900">
             Crop Image
@@ -43,7 +43,7 @@ const CropImageModal: React.FC = () => {
         style={{ height: 400, width: "100%" }}
         // Cropper.js options
         aspectRatio={aspectRatio}
-        viewMode={3}
+        viewMode={2}
         guides={true}
         ref={cropperRef}
         autoCropArea={0.7}
