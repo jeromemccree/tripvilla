@@ -62,6 +62,7 @@ model User {
 }
 
 model Listing {
+  //! FIX THE LISTING ID AND SERROGATE ID ISSUE. MOST THINGS ARE REFRENCING THE ID NOT LISTING ID
   id                   String                 @id @default(cuid())
   listingId            String
   title                String
