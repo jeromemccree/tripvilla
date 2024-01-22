@@ -39,13 +39,177 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id              String          @id @default(cuid())
+  name            String?
+  email           String?         @unique
+  emailVerified   DateTime?
+  avatar          String?
+  background      String?
+  bio             String?
+  location        String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  accounts        Account[]
+  sessions        Session[]
+  listings        Listing[]
+  messageSent     Message[]       @relation("MessageSent")
+  messageRecieved Message[]       @relation("MessageRecieved")
+  notifications   Notifications[]
+  bookings        Booking[]
+  reviews         Review[]
+  replies         Reply[]
+  collections     Collection[]
+}
+
+model Listing {
+  id                   String                 @id @default(cuid())
+  listingId            String
+  title                String
+  overview             String
+  bedrooms             Int
+  bathrooms            Int
+  guests               Int
+  propertyType         String
+  city                 String
+  address              String
+  state                String
+  viewCount            Int
+  rating               Float
+  price                Int
+  userId               String
+  validFrom            DateTime
+  validTo              DateTime
+  isActive             Boolean
+  images               ListingImage[]
+  user                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  bookings             Booking[]
+  reviews              Review[]
+  collectionHasListing CollectionHasListing[]
+
+  @@index([userId])
+}
+
+model ListingImage {
+  id        String  @id @default(cuid())
+  listingId String
+  src       String
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([listingId])
+}
+
+model Booking {
+  id           String   @id @default(cuid())
+  listingId    String
+  bookerId     String
+  checkIn      DateTime
+  checkOut     DateTime
+  payoutStatus String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  listing      Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [bookerId], references: [id], onDelete: Cascade)
+
+  @@index([listingId])
+  @@index([bookerId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  fromId    String
+  toId      String
+  message   String
+  read      Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  from      User     @relation("MessageSent", fields: [fromId], references: [id], onDelete: Cascade)
+  to        User     @relation("MessageRecieved", fields: [toId], references: [id], onDelete: Cascade)
+
+  @@index([toId])
+  @@index([fromId])
+}
+
+model Notifications {
+  id        String   @id @default(cuid())
+  toId      String
+  message   String
+  read      Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [toId], references: [id], onDelete: Cascade)
+
+  @@index([toId])
+}
+
+model Review {
+  id           String        @id @default(cuid())
+  listingId    String
+  userId       String
+  comment      String
+  overall      Int
+  accuracy     Int
+  checkIn      Int
+  communcation Int
+  location     Int
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  listing      Listing       @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  images       ReviewImage[]
+  replies      Reply[]
+
+  @@index([listingId])
+  @@index([userId])
+}
+
+model ReviewImage {
+  id       String @id @default(cuid())
+  reviewId String
+  src      String
+  review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId])
+}
+
+model Reply {
+  id        String   @id @default(cuid())
+  reviewId  String
+  userId    String
+  comment   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId])
+  @@index([userId])
+}
+
+model Collection {
+  id                   String                 @id @default(cuid())
+  name                 String
+  userId               String
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  user                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collectionHasListing CollectionHasListing[]
+
+  @@index([userId])
+}
+
+model CollectionHasListing {
+  id           String     @id @default(cuid())
+  collectionId String
+  listingId    String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  listing      Listing    @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([collectionId])
+  @@index([listingId])
 }
 
 model VerificationToken {

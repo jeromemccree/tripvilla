@@ -106,6 +106,33 @@ const Navbar: React.FC<NavbarProps> = ({ maxWidth }) => {
     },
   ];
   const Navigation = sessionData ? signedInNavigation : signedOutNavigation;
+  const userAvatar = sessionData?.user?.image || "";
+  const userName = sessionData?.user?.name || "";
+  const userEmail = sessionData?.user?.email || "";
+
+  const buttonContent = sessionData ? (
+    <Avatar size="md" src={userAvatar} alt="avatar" />
+  ) : (
+    <General.DotsVertical />
+  );
+
+  const headerContent = sessionData ? (
+    <AvatarLabelGroup
+      text={userName}
+      supportingText={userEmail}
+      size="md"
+      avatar={<Avatar size="md" src={userAvatar} alt="avatar" />}
+    />
+  ) : (
+    <span className="font-semibold text-gray-700">Menu</span>
+  );
+
+  const dropdownItems = Navigation.map((item) => ({
+    text: item.name,
+    icon: item.icon,
+    href: item.path,
+    hasDivider: item.dividerBelow,
+  }));
   return (
     <>
       <nav className="fixed z-10 flex h-16 w-full justify-center border border-gray-200 bg-white p-2 shadow-sm desktop:h-18 desktop:px-8">
@@ -119,33 +146,7 @@ const Navbar: React.FC<NavbarProps> = ({ maxWidth }) => {
             <span>search</span>
           </button>
           <div className="hidden items-center gap-3 desktop:flex">
-            <Dropdown
-              button={
-                sessionData ? (
-                  <Avatar size="md" src={sessionData?.user?.image || ""} alt="avatar" />
-                ) : (
-                  <General.DotsVertical />
-                )
-              }
-              header={
-                sessionData ? (
-                  <AvatarLabelGroup
-                    text={sessionData?.user.name || ""}
-                    supportingText={sessionData?.user.email || ""}
-                    size="md"
-                    avatar={<Avatar size="md" src={sessionData?.user?.image || ""} alt="avatar" />}
-                  />
-                ) : (
-                  <span className="font-semibold text-gray-700">Menu</span>
-                )
-              }
-              dropdownItems={Navigation.map((item) => ({
-                text: item.name,
-                icon: item.icon, // Replace 'icon-class-name' with the actual class name
-                href: item.path,
-                hasDivider: item.dividerBelow,
-              }))}
-            />
+            <Dropdown button={buttonContent} header={headerContent} dropdownItems={dropdownItems} />
             {!sessionData ? (
               <>
                 <Button
