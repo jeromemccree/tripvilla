@@ -39,22 +39,22 @@ model Session {
 }
 
 model User {
-  id              String          @id @default(cuid())
+  id              String         @id @default(cuid())
   name            String?
-  email           String?         @unique
+  email           String?        @unique
   emailVerified   DateTime?
   avatar          String?
   background      String?
   bio             String?
   location        String?
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
   accounts        Account[]
   sessions        Session[]
   listings        Listing[]
-  messageSent     Message[]       @relation("MessageSent")
-  messageRecieved Message[]       @relation("MessageRecieved")
-  notifications   Notifications[]
+  messageSent     Message[]      @relation("MessageSent")
+  messageRecieved Message[]      @relation("MessageRecieved")
+  notifications   Notification[]
   bookings        Booking[]
   reviews         Review[]
   replies         Reply[]
@@ -62,9 +62,8 @@ model User {
 }
 
 model Listing {
-  //! FIX THE LISTING ID AND SERROGATE ID ISSUE. MOST THINGS ARE REFRENCING THE ID NOT LISTING ID
-  id                   String                 @id @default(cuid())
-  listingId            String
+  surrogateId          String                 @id @default(cuid())
+  listingId            String                 @unique
   title                String
   overview             String
   bedrooms             Int
@@ -96,7 +95,7 @@ model ListingImage {
   id        String  @id @default(cuid())
   listingId String
   src       String
-  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listing   Listing @relation(fields: [listingId], references: [listingId], onDelete: Cascade)
 
   @@index([listingId])
 }
@@ -110,7 +109,7 @@ model Booking {
   payoutStatus String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  listing      Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listing      Listing  @relation(fields: [listingId], references: [listingId], onDelete: Cascade)
   user         User     @relation(fields: [bookerId], references: [id], onDelete: Cascade)
 
   @@index([listingId])
@@ -132,7 +131,7 @@ model Message {
   @@index([fromId])
 }
 
-model Notifications {
+model Notification {
   id        String   @id @default(cuid())
   toId      String
   message   String
@@ -156,7 +155,7 @@ model Review {
   location     Int
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
-  listing      Listing       @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listing      Listing       @relation(fields: [listingId], references: [listingId], onDelete: Cascade)
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   images       ReviewImage[]
   replies      Reply[]
@@ -207,7 +206,7 @@ model CollectionHasListing {
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
-  listing      Listing    @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listing      Listing    @relation(fields: [listingId], references: [listingId], onDelete: Cascade)
 
   @@index([collectionId])
   @@index([listingId])
