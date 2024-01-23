@@ -39,54 +39,54 @@ model Session {
 }
 
 model User {
-  id              String         @id @default(cuid())
-  name            String?
-  email           String?        @unique
-  emailVerified   DateTime?
-  avatar          String?
-  background      String?
-  bio             String?
-  location        String?
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  accounts        Account[]
-  sessions        Session[]
-  listings        Listing[]
-  messageSent     Message[]      @relation("MessageSent")
-  messageRecieved Message[]      @relation("MessageRecieved")
-  notifications   Notification[]
-  bookings        Booking[]
-  reviews         Review[]
-  replies         Reply[]
-  collections     Collection[]
+  id               String         @id @default(cuid())
+  name             String?
+  email            String?        @unique
+  emailVerified    DateTime?
+  avatar           String?
+  background       String?
+  bio              String?
+  location         String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  accounts         Account[]
+  sessions         Session[]
+  listings         Listing[]
+  messagesSent     Message[]      @relation("MessageSent")
+  messagesRecieved Message[]      @relation("MessageRecieved")
+  notifications    Notification[]
+  bookings         Booking[]
+  reviews          Review[]
+  replies          Reply[]
+  collections      Collection[]
 }
 
 model Listing {
-  surrogateId          String                 @id @default(cuid())
-  listingId            String                 @unique
-  title                String
-  overview             String
-  bedrooms             Int
-  bathrooms            Int
-  guests               Int
-  propertyType         String
-  city                 String
-  address              String
-  state                String
-  viewCount            Int
-  rating               Float
-  price                Int
-  userId               String
-  validFrom            DateTime
-  validTo              DateTime
-  isActive             Boolean
-  images               ListingImage[]
-  user                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @updatedAt
-  bookings             Booking[]
-  reviews              Review[]
-  collectionHasListing CollectionHasListing[]
+  surrogateId           String                 @id @default(cuid())
+  listingId             String                 @unique
+  title                 String
+  overview              String
+  bedrooms              Int
+  bathrooms             Int
+  guests                Int
+  propertyType          String
+  city                  String
+  address               String
+  state                 String
+  viewCount             Int
+  rating                Float
+  price                 Int
+  userId                String
+  validFrom             DateTime
+  validTo               DateTime
+  isActive              Boolean
+  images                ListingImage[]
+  user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  bookings              Booking[]
+  reviews               Review[]
+  collectionHasListings CollectionHasListing[]
 
   @@index([userId])
 }
@@ -188,13 +188,13 @@ model Reply {
 }
 
 model Collection {
-  id                   String                 @id @default(cuid())
-  name                 String
-  userId               String
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @updatedAt
-  user                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  collectionHasListing CollectionHasListing[]
+  id                    String                 @id @default(cuid())
+  name                  String
+  userId                String
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collectionHasListings CollectionHasListing[]
 
   @@index([userId])
 }
